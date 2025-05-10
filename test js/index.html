@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test con Mocha e Chai</title>
+  <!-- Mocha CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/10.2.0/mocha.min.css">
+</head>
+<body>
+  <h1>Test della Classe Cerchio</h1>
+
+  <!-- Risultati -->
+  <div id="mocha"></div>
+
+  <!-- Mocha -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/10.2.0/mocha.min.js"></script>
+  <!-- Chai -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/4.3.8/chai.min.js"></script>
+
+  <script>
+    // Configura Mocha
+    mocha.setup('bdd');
+    const expect = chai.expect;
+
+    // Classe cerchio
+    class Cerchio {
+      constructor(raggio) {
+        this.raggio = raggio;
+      }
+
+      area() {
+        return Math.PI * this.raggio * this.raggio;
+      }
+
+      circonferenza() {
+        return 2 * Math.PI * this.raggio;
+      }
+    }
+
+    // Test
+    describe('Cerchio', function() {
+      it("Dovrebbe calcolare correttamente l' area", function() {
+        let cerchio = new Cerchio(2);
+        expect(cerchio.area()).to.be.closeTo(12.566, 0.001);
+      });
+
+      it('Dovrebbe calcolare correttamente la circonferenza', function() {
+        let cerchio = new Cerchio(2);
+        expect(cerchio.circonferenza()).to.be.closeTo(12.566, 0.001);
+      });
+
+      it('Dovrebbe gestire il raggio a zero', function() {
+        let cerchio = new Cerchio(0);
+        expect(cerchio.area()).to.equal(0);
+        expect(cerchio.circonferenza()).to.equal(0);
+      });
+    });
+
+    // Esegui
+    mocha.run();
+  </script>
+</body>
+</html>
